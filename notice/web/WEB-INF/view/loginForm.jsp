@@ -30,7 +30,7 @@
     }
 
     function find() {
-        location.href = "";
+        location.href = "<c:url value='/register/find'/>";
     }
 </script>
 </html>

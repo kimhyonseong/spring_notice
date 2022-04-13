@@ -12,10 +12,9 @@
     <title>Title</title>
 </head>
 <body>
-${param.name}
-${param.id}
-${param.pw}
-${param.name}
-${param.name}
+이름 ${param.name}
+아이디 ${param.id}
+패스워드 ${param.pw}
+생일 ${param.birth}
 </body>
 </html>

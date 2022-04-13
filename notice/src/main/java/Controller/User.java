@@ -1,5 +1,6 @@
 package Controller;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ public class User {
     private String id;
     private String pw;
     private String name;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private Date birth;
 
     public User() {}

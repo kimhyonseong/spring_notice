@@ -66,7 +66,7 @@
   <header>
     <nav>
       <section>
-        <article><a href="">HOME</a></article>
+        <article><a href="<c:url value="/"/>">HOME</a></article>
         <article class="on"><a href="">공지사항</a></article>
         <article><a href="">자유게시판</a></article>
         <article><a href="">익명게시판</a></article>

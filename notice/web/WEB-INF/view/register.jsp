@@ -7,12 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <html>
 <head>
     <title>회원가입</title>
 </head>
 <body>
-<form action="<c:url value="/register/success" />" method="post">
+<%--<form action="<c:url value="/register/save" />" method="post">--%>
+<form:form modelAttribute="user">
+    <div id="msg" class="msg"><form:errors path="id"/></div>
     <label>
         아이디
         <input type="text" name="id">
@@ -30,6 +33,7 @@
         <input type="text" name="birth">
     </label>
     <input type="submit" value="submit">
-</form>
+<%--</form>--%>
+</form:form>
 </body>
 </html>

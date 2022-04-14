@@ -3,9 +3,9 @@ package Controller;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
-@Component
 public class User {
     private String id;
     private String pw;

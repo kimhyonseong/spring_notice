@@ -13,9 +13,4 @@
     </bean>
 
     <context:component-scan base-package="Controller"/>
-
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="/WEB-INF/message.properties" />
-    </bean>
 </beans>

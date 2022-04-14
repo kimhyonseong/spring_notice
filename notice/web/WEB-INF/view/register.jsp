@@ -14,7 +14,8 @@
 </head>
 <body>
 <%--<form action="<c:url value="/register/save" />" method="post">--%>
-<form:form modelAttribute="user">
+
+<form:form modelAttribute="user" action="${pageContext.request.contextPath}/register/save">
     <div id="msg" class="msg"><form:errors path="id"/></div>
     <label>
         아이디

@@ -121,4 +121,24 @@ public class UserDaoImpl implements UserDao {
 
         return users;
     }
+
+    @Override
+    public int existId(String id) {
+        String sql = "select user_id from users where user_id = ?";
+        ResultSet rs = null;
+        try(
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ) {
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return 1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

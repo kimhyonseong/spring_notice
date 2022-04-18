@@ -1,5 +1,6 @@
 package Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
 @RequestMapping("/register")
 public class RegisterController {
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    UserService userService;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         //binder.setValidator(new UserValidator());  //로컬
@@ -32,17 +40,13 @@ public class RegisterController {
     }
 
     @PostMapping("/save")
-    public String save(@Valid User user, BindingResult result, Model m){
-//        UserValidator userValidator = new UserValidator();
-//        userValidator.validate(user,result);
-
-        System.out.println("user = " + user);
-        System.out.println("result = " + result);
-
+    public String save(@Valid User user, BindingResult result) throws Exception {
         if (result.hasErrors()) {
-            // return "redirect:/register/add";  // 에러메시지 안뜨게됨
             return "register";
         }
+
+        userDao.insertUser(user);
+        //userService.registerUser(user);  // 중복체크 하기
 
         return "registerSuccess";
     }

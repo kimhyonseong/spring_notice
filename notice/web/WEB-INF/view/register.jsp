@@ -16,25 +16,42 @@
 <%--<form action="<c:url value="/register/save" />" method="post">--%>
 
 <form:form modelAttribute="user" action="${pageContext.request.contextPath}/register/save">
-    <div id="msg" class="msg"><form:errors path="id"/></div>
+    <div class="msg"><form:errors path="id"/>
     <label>
         아이디
         <input type="text" name="id">
     </label>
+    </div>
+    <div><form:errors path="pw"/>
     <label>
         비밀번호
         <input type="password" name="pw">
     </label>
+    </div>
+    <div><form:errors path="name"/>
     <label>
         이름
         <input type="text" name="name">
     </label>
+    </div>
+    <div><form:errors path="birth"/>
     <label>
         생일
         <input type="text" name="birth">
     </label>
-    <input type="submit" value="submit">
+    </div>
+    <input type="submit" value="회원가입">
+    <input type="button" onclick="move.back()" value="뒤로">
 <%--</form>--%>
 </form:form>
+<script>
+    let move = {
+        page:"",
+
+        back : function () {
+            history.back();
+        }
+    }
+</script>
 </body>
 </html>

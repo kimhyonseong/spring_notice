@@ -17,5 +17,6 @@
 아이디 ${param.id}
 패스워드 ${param.pw}
 생일 ${param.birth}
+<input type="button" value="홈으로" onclick="location.href='<c:url value="/"/>'">
 </body>
 </html>

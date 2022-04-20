@@ -112,6 +112,7 @@
         </tbody>
       </table>
     </section>
+    <input type="button" value="글쓰기" onclick="location.href='<c:url value="/notice/write"/>'">
   </main>
   </body>
 </html>

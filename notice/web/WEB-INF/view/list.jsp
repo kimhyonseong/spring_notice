@@ -106,6 +106,15 @@
             </c:forEach>
             </tbody>
         </table>
+        <c:if test="${paging.showPrev}">
+            <a href="<c:url value='/board/list?currentPage=${paging.beginPage-1}'/>"> &lt; </a>
+        </c:if>
+        <c:forEach var="i" begin="${paging.beginPage}" end="${paging.endPage}">
+            <a href="<c:url value='/board/list?currentPage=${i}'/>">${i}</a>
+        </c:forEach>
+        <c:if test="${paging.showNext}">
+            <a href="<c:url value='/board/list?currentPage=${paging.endPage+1}'/>"> &gt; </a>
+        </c:if>
     </section>
     <input type="button" value="글쓰기" onclick="location.href='<c:url value="/board/write"/>'">
 </main>

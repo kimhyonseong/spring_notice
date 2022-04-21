@@ -18,4 +18,6 @@ public interface NoticeDao {
     int insertNotice(Notice notice);
 
     int updateNotice(Notice notice);
+
+    int getCnt();
 }

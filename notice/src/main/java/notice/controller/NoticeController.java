@@ -3,6 +3,7 @@ package notice.controller;
 import notice.NoticeValidator;
 import notice.dao.NoticeDao;
 import notice.domain.Notice;
+import notice.domain.PageHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +21,13 @@ public class NoticeController {
     @Autowired
     NoticeDao noticeDao;
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder){
-        //binder.setValidator(new UserValidator());  //로컬
-        binder.addValidators(new NoticeValidator());  //validator 추가로
-        List<Validator> validatorList = binder.getValidators();
-        System.out.println("validatorList = " + validatorList);
-    }
+//    @InitBinder
+//    public void initBinder(WebDataBinder binder){
+//        //binder.setValidator(new UserValidator());  //로컬
+//        binder.addValidators(new NoticeValidator());  //validator 추가로
+//        List<Validator> validatorList = binder.getValidators();
+//        System.out.println("validatorList = " + validatorList);
+//    }
 
     @RequestMapping("/write")
     public String write() {
@@ -40,9 +41,14 @@ public class NoticeController {
     }
 
     @RequestMapping("/list")
-    public String list(Model m) {
-        List<Notice> list = noticeDao.list();
+    public String list(Integer currentPage,Model m) {
+        if (currentPage == null) currentPage = 1;
+        int limit = 10;
+        List<Notice> list = noticeDao.list(currentPage,limit);
+        PageHandler pageHandler = new PageHandler(noticeDao.getCnt(),currentPage,limit);
+        System.out.println(pageHandler);
         m.addAttribute("list",list);
+        m.addAttribute("paging",pageHandler);
         return "list";
     }
 }

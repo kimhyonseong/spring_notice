@@ -26,7 +26,7 @@ public class NoticeDaoImpl implements NoticeDao {
     public List<Notice> list(int page, int limit) {
         List<Notice> list = new ArrayList<Notice>();
         String sql = "select notice_no,notice_code,title,content,user_id,reg_date,up_date " +
-                "from notice limit ?,?";
+                "from notice order by notice_no desc limit ?,?";
         ResultSet rs = null;
         System.out.println(sql);
         try (
@@ -85,6 +85,27 @@ public class NoticeDaoImpl implements NoticeDao {
         }
 
         return notice;
+    }
+
+    @Override
+    public int getCnt(){
+        String sql = "select count(*) as cnt from notice";
+        ResultSet rs;
+        int totalCnt = 0;
+        try (
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ){
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                totalCnt = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalCnt;
     }
 
     @Override

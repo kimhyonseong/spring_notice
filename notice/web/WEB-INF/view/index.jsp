@@ -112,7 +112,7 @@
         </tbody>
       </table>
     </section>
-    <input type="button" value="글쓰기" onclick="location.href='<c:url value="/notice/write"/>'">
+    <input type="button" value="글쓰기" onclick="location.href='<c:url value="/board/write"/>'">
   </main>
   </body>
 </html>

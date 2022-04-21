@@ -9,7 +9,7 @@
     <title>글쓰기</title>
 </head>
 <body>
-<form action="<c:url value="/notice/save" />" method="post">
+<form action="<c:url value="/board/save" />" method="post">
 <div>
     <label>
         <input type="text" name="title" placeholder="제목">

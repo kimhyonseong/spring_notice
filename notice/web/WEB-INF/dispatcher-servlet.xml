@@ -9,11 +9,11 @@
 ">
     <mvc:resources mapping="/resource/**" location="/web/resource"/>
     <!-- <mvc:annotation-driven/> -->
-    <context:component-scan base-package="Controller"/>
+    <context:component-scan base-package="notice"/>
 
     <!-- globalValidator 동작 안할시 톰캣 폴더 라이브러리에 jar 추가 -->
     <mvc:annotation-driven validator="globalUserValidator"/>
-    <bean id="globalUserValidator" class="Controller.GlobalUserValidator" />
+    <bean id="globalUserValidator" class="notice.GlobalUserValidator" />
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>

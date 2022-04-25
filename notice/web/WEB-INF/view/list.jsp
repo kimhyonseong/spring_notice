@@ -99,7 +99,7 @@
             <c:forEach var="notice" items="${list}">
             <tr>
                 <td>${notice.noticeId}</td>
-                <td>${notice.title}</td>
+                <td><a href="<c:url value='/board/view?bno=${notice.noticeId}&currentPage=${currentPage}'/>">${notice.title}</a></td>
                 <td>${notice.writer}</td>
                 <td>${notice.regDate}</td>
             </tr>

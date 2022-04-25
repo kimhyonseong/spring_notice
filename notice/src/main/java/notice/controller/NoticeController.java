@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +30,16 @@ public class NoticeController {
 //        System.out.println("validatorList = " + validatorList);
 //    }
 
-    @RequestMapping("/write")
+    @GetMapping("/write")
     public String write() {
+        return "write";
+    }
+
+    @GetMapping("/view")
+    public String view(int bno,int currentPage, Model m) {
+        Notice notice = noticeDao.selectNotice(bno);
+        m.addAttribute("notice",notice);
+        m.addAttribute("currentPage",currentPage);
         return "write";
     }
 
@@ -48,6 +57,7 @@ public class NoticeController {
         PageHandler pageHandler = new PageHandler(noticeDao.getCnt(),currentPage,limit);
         System.out.println(pageHandler);
         m.addAttribute("list",list);
+        m.addAttribute("currentPage",currentPage);
         m.addAttribute("paging",pageHandler);
         return "list";
     }

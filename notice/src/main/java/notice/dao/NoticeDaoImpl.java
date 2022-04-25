@@ -165,7 +165,7 @@ public class NoticeDaoImpl implements NoticeDao {
     public int updateNotice(Notice notice) {
         int rowCnt = 0;
         String sql = "update notice set notice_code = ?,title = ?, content = ?" +
-                ", up_date = now() where notice_no = ?";
+                ", up_date = now() where notice_no = ? and user_id = ?";
 
         try (
                 Connection conn = ds.getConnection();
@@ -175,6 +175,7 @@ public class NoticeDaoImpl implements NoticeDao {
             pstmt.setString(2,notice.getTitle());
             pstmt.setString(3,notice.getContent());
             pstmt.setInt(4,notice.getNoticeId());
+            pstmt.setString(5,notice.getWriter());
         } catch (Exception e) {
             e.printStackTrace();
         }

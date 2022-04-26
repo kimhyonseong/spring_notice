@@ -72,13 +72,18 @@
     }
 </style>
 <body>
+<script>
+    let msg = "${msg}";
+    if (msg == "DEL_OK") alert("삭제 완료");
+    if (msg == "DEL_ERR") alert("삭제 오류");
+</script>
 <header>
     <nav>
         <section>
             <article><a href="<c:url value="/"/>">HOME</a></article>
-            <article class="on"><a href="">공지사항</a></article>
-            <article><a href="">자유게시판</a></article>
-            <article><a href="">익명게시판</a></article>
+            <article class="on"><a href="<c:url value="/board/list"/>">공지사항</a></article>
+            <article><a href="<c:url value="/board/list"/>">자유게시판</a></article>
+            <article><a href="<c:url value="/board/list"/>">익명게시판</a></article>
         </section>
     </nav>
     <a href="${LogOutLink}" style="margin-right: 20px;">${LogOut}</a>

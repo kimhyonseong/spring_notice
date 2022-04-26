@@ -4,11 +4,14 @@ import notice.domain.User;
 import notice.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Controller
 public class LoginController {
@@ -16,23 +19,30 @@ public class LoginController {
     UserDao userDao;
 
     @GetMapping("/login")
-    public String loginForm() {
+    public String loginForm(String returnUrl, Model m) {
+        m.addAttribute("returnUrl",returnUrl);
         return "loginForm";
     }
 
     @PostMapping("/login")
-    public String login(String id, String pw, HttpServletRequest request) {
+    public String login(String id, String pw, HttpServletRequest request,String returnUrl) {
         if(loginCheck(id, pw)) {
             HttpSession session = request.getSession();
             session.setAttribute("id",id);
 
-            return "redirect:/";
+            System.out.println("returnUrl = " + returnUrl);
+
+            if (isEmpty(returnUrl)) {
+                return "redirect:/";
+            } else {
+                return "redirect:"+returnUrl;
+            }
         }
 
         return "loginForm";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/";

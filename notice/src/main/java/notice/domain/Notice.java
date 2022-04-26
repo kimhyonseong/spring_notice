@@ -3,8 +3,8 @@ package notice.domain;
 import java.util.Date;
 
 public class Notice {
-    private int noticeId;
-    private int noticeCode;
+    private Integer noticeId;
+    private Integer noticeCode;
     private String title;
     private String content;
     private String writer;
@@ -27,11 +27,11 @@ public class Notice {
         this.noticeCode = noticeCode;
     }
 
-    public int getNoticeId() {
+    public Integer getNoticeId() {
         return noticeId;
     }
 
-    public void setNoticeId(int noticeId) {
+    public void setNoticeId(Integer noticeId) {
         this.noticeId = noticeId;
     }
 
@@ -70,7 +70,7 @@ public class Notice {
     public Notice() {}
 
     // insert 전용
-    public Notice(int noticeCode,String title, String content, String writer, Date reg_date,Date up_date) {
+    public Notice(Integer noticeCode,String title, String content, String writer, Date reg_date,Date up_date) {
         this.noticeCode = noticeCode;
         this.title = title;
         this.content = content;
@@ -80,7 +80,7 @@ public class Notice {
     }
 
     // select 전용
-    public Notice(int noticeId,int noticeCode, String title, String content, String writer, Date reg_date,Date up_date) {
+    public Notice(Integer noticeId,int noticeCode, String title, String content, String writer, Date reg_date,Date up_date) {
         this.noticeId = noticeId;
         this.noticeCode = noticeCode;
         this.title = title;

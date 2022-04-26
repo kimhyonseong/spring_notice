@@ -11,7 +11,7 @@ public interface NoticeDao {
 
     Notice selectNotice(int noticeId);
 
-    int deleteNotice(int noticeId);
+    int deleteNotice(int noticeId, String writer);
 
     int deleteAllNotice();
 

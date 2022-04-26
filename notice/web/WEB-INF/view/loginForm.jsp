@@ -13,6 +13,7 @@
 </head>
 <body>
 <form method="post" action="<c:url value="/login" />">
+    <input type="hidden" name="returnUrl" value="${returnUrl}">
     <label>ID
         <input type="text" name="id" value="">
     </label>

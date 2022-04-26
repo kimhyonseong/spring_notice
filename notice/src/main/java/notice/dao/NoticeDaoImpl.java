@@ -109,14 +109,15 @@ public class NoticeDaoImpl implements NoticeDao {
     }
 
     @Override
-    public int deleteNotice(int noticeId) {
+    public int deleteNotice(int noticeId, String writer) {
         int rowCnt = 0;
-        String sql = "delete from notices where notice_id = ?";
+        String sql = "delete from notice where notice_no = ? and user_id = ?";
 
         try(Connection conn = ds.getConnection();
             PreparedStatement pstmp = conn.prepareStatement(sql);
         ) {
             pstmp.setInt(1,noticeId);
+            pstmp.setString(2,writer);
             rowCnt = pstmp.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

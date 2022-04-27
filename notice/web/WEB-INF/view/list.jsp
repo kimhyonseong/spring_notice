@@ -76,6 +76,8 @@
     let msg = "${msg}";
     if (msg == "DEL_OK") alert("삭제 완료");
     if (msg == "DEL_ERR") alert("삭제 오류");
+    if (msg == "UPD_OK") alert("수정 완료");
+    if (msg == "UPD_ERR") alert("수정 오류");
 </script>
 <header>
     <nav>

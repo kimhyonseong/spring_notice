@@ -177,6 +177,8 @@ public class NoticeDaoImpl implements NoticeDao {
             pstmt.setString(3,notice.getContent());
             pstmt.setInt(4,notice.getNoticeId());
             pstmt.setString(5,notice.getWriter());
+
+            rowCnt = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

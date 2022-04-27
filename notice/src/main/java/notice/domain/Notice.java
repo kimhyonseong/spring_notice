@@ -89,4 +89,17 @@ public class Notice {
         this.reg_date = reg_date;
         this.up_date = up_date;
     }
+
+    @Override
+    public String toString() {
+        return "Notice{" +
+                "noticeId=" + noticeId +
+                ", noticeCode=" + noticeCode +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", writer='" + writer + '\'' +
+                ", reg_date=" + reg_date +
+                ", up_date=" + up_date +
+                '}';
+    }
 }

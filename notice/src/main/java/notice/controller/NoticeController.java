@@ -89,6 +89,24 @@ public class NoticeController {
         }
     }
 
+    @PostMapping("/update")
+    public String update(Notice notice,HttpSession session, RedirectAttributes rattr) {
+        notice.setWriter((String) session.getAttribute("id"));
+
+        try {
+            int rowCnt = noticeDao.updateNotice(notice);
+
+            if (rowCnt != 1) throw new Exception("fail");
+
+            rattr.addFlashAttribute("msg", "UPD_OK");
+            return "redirect:/board/list";
+        } catch (Exception e) {
+            rattr.addFlashAttribute("msg", "UPD_ERR");
+            e.printStackTrace();
+            return "write";
+        }
+    }
+
     @PostMapping("/delete")
     public String delete(Notice notice, Model m, HttpSession session, RedirectAttributes rattr) {
         Notice notice1 = noticeDao.selectNotice(notice.getNoticeId());

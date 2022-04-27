@@ -12,7 +12,7 @@
 <form id="form">
     <div>
         <input type="hidden" name="noticeId" value="${notice.noticeId}">
-        <select name="noticeCode">
+        <select name="noticeCode" id="noticeCode" disabled>
             <c:forEach var="codeList" items="${codeList}" varStatus="status">
                 <option value="${status.count}" <c:if test="${notice.noticeCode == status.count}">selected</c:if>>
                     <c:out value="${codeList}"/>
@@ -30,9 +30,11 @@
             ${mode == "new"?"" : "readonly"}>${notice.content}</textarea>
         </label>
     </div>
-    <input type="button" value="등록" onclick="notice.write()">
-    <input type="button" value="수정" onclick="">
-    <input type="button" value="삭제" onclick="notice.delete()">
+    <input type="button" value="글쓰기" onclick="notice.write()">
+    <c:if test="${notice.writer == login}">
+        <input type="button" value="수정" id="edit_bt" onclick="notice.edit()">
+        <input type="button" value="삭제" onclick="notice.delete()">
+    </c:if>
     <input type="button" value="목록" onclick="notice.list()">
 </form>
 <script>
@@ -51,20 +53,30 @@
             </c:choose>
         },
         edit: function () {
+            document.getElementById("title").removeAttribute("readonly");
+            document.getElementById("content").removeAttribute("readonly");
+            document.getElementById("noticeCode").removeAttribute("disabled");
 
+            document.getElementById("edit_bt").setAttribute("onclick","notice.update()");
+            document.getElementById("edit_bt").setAttribute("value","등록");
+            document.getElementById("title").focus();
         },
         update: function () {
-            this.form.setAttribute("action", "<c:url value='/board/update'/>");
-            this.form.setAttribute("method", "POST");
-            this.form.submit();
+            if (confirm("수정하시겠습니까?")) {
+                this.form.setAttribute("action", "<c:url value='/board/update'/>");
+                this.form.setAttribute("method", "POST");
+                this.form.submit();
+            }
         },
         list: function () {
             location.href = "<c:url value='/board/list?currentPage=${currentPage}'/>";
         },
         delete: function () {
-            this.form.setAttribute("action", "<c:url value='/board/delete'/>");
-            this.form.setAttribute("method", "POST");
-            this.form.submit();
+            if (confirm("정말 삭제하시겠습니까?")) {
+                this.form.setAttribute("action", "<c:url value='/board/delete'/>");
+                this.form.setAttribute("method", "POST");
+                this.form.submit();
+            }
         }
     }
 </script>

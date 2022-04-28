@@ -1,6 +1,7 @@
 package notice.dao;
 
 import notice.domain.Notice;
+import notice.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -19,22 +20,23 @@ public class NoticeDaoImpl implements NoticeDao {
 
     @Override
     public List<Notice> list() {
-        return list(1,10);
+        return list(1,10,1);
     }
 
     @Override
-    public List<Notice> list(int page, int limit) {
+    public List<Notice> list(int page, int limit,int noticeCode) {
         List<Notice> list = new ArrayList<Notice>();
         String sql = "select notice_no,notice_code,title,content,user_id,reg_date,up_date " +
-                "from notice order by notice_no desc limit ?,?";
+                "from notice where notice_code = ? order by notice_no desc limit ?,?";
         ResultSet rs = null;
         System.out.println(sql);
         try (
                 Connection conn = ds.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 ){
-            pstmt.setInt(1, (page-1) * limit);
-            pstmt.setInt(2, limit);
+            pstmt.setInt(1, noticeCode);
+            pstmt.setInt(2, (page-1) * limit);
+            pstmt.setInt(3, limit);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -88,14 +90,22 @@ public class NoticeDaoImpl implements NoticeDao {
     }
 
     @Override
-    public int getCnt(){
-        String sql = "select count(*) as cnt from notice";
+    public int getCnt(Integer noticeCode){
         ResultSet rs;
+        String sql = "select count(*) as cnt from notice ";
+
+        if (noticeCode != null) {
+            sql += "where notice_code = ?";
+        }
+
         int totalCnt = 0;
         try (
                 Connection conn = ds.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
-                ){
+        ){
+            if (noticeCode != null) {
+                pstmt.setInt(1, noticeCode);
+            }
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -106,6 +116,11 @@ public class NoticeDaoImpl implements NoticeDao {
         }
 
         return totalCnt;
+    }
+
+    @Override
+    public int getCnt(){
+        return getCnt(null);
     }
 
     @Override
@@ -179,6 +194,129 @@ public class NoticeDaoImpl implements NoticeDao {
             pstmt.setString(5,notice.getWriter());
 
             rowCnt = pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rowCnt;
+    }
+
+    @Override
+    public List<Notice> searchNotice(SearchCondition sc) {
+        String sql = "select notice_no, notice_code, title, content, user_id, reg_date,up_date from notice" +
+                " where true and ";
+        ResultSet rs = null;
+        Notice notice = null;
+        List<Notice> list = new ArrayList<>();
+        if (sc.getOption() > 2) sc.setOption(2);
+        if (sc.getOption() < 0) sc.setOption(0);
+
+        //글 종류
+        if (sc.getNoticeCode() != 0) {
+            sql += "notice_code = ? and ";
+        } else {
+            sql += "notice_code in (?,1,2,3) and ";
+        }
+
+        switch (sc.getOption()) {
+            case 0 :
+                sql += "title like concat('%',?,'%') ";
+                break;
+            case 1 :
+                sql += "content like concat('%',?,'%') ";
+                break;
+            default:
+                sql += "(title like concat('%',?,'%') or ";
+                sql += "content like concat('%',?,'%')) ";
+        }
+
+        sql += "limit ?,?";
+
+        try(
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                ) {
+            pstmt.setInt(1,sc.getNoticeCode());
+
+            // 옵션에 따른 키워드
+            if (sc.getOption() == 2) {
+                pstmt.setString(2,sc.getKeyword());
+                pstmt.setString(3,sc.getKeyword());
+                pstmt.setInt(4,sc.getOffset());
+                pstmt.setInt(5,sc.getPageSize());
+            } else {
+                pstmt.setString(2,sc.getKeyword());
+                pstmt.setInt(3,sc.getOffset());
+                pstmt.setInt(4,sc.getPageSize());
+            }
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                notice = new Notice();
+                notice.setNoticeId(rs.getInt(1));
+                notice.setNoticeCode(rs.getInt(2));
+                notice.setTitle(rs.getString(3));
+                notice.setContent(rs.getString(4));
+                notice.setWriter(rs.getString(5));
+                notice.setRegDate(new Date(rs.getDate(6).getTime()));
+                notice.setUpDate(new Date(rs.getDate(7).getTime()));
+
+                list.add(notice);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public int searchNoticeCnt(SearchCondition sc) {
+        String sql = "select count(*) from notice where true and ";
+        int rowCnt = 0;
+        ResultSet rs;
+
+        //글 종류
+        if (sc.getNoticeCode() != 0) {
+            sql += "notice_code = ? and ";
+        } else {
+            sql += "notice_code in (?,1,2,3) and ";
+        }
+
+        switch (sc.getOption()) {
+            case 0 :
+                sql += "title like concat('%',?,'%') ";
+                break;
+            case 1 :
+                sql += "content like concat('%',?,'%') ";
+                break;
+            default:
+                sql += "(title like concat('%',?,'%') or ";
+                sql += "content like concat('%',?,'%')) ";
+        }
+
+        try(
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1,sc.getNoticeCode());
+
+            // 옵션에 따른 키워드드
+            if (sc.getOption() != 2) {
+                pstmt.setString(2,sc.getKeyword());
+            } else {
+                pstmt.setString(2,sc.getKeyword());
+                pstmt.setString(3,sc.getKeyword());
+            }
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                rowCnt = rs.getInt(1);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

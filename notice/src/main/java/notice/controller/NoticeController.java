@@ -4,6 +4,7 @@ import notice.NoticeValidator;
 import notice.dao.NoticeDao;
 import notice.domain.Notice;
 import notice.domain.PageHandler;
+import notice.domain.SearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -132,14 +133,20 @@ public class NoticeController {
     }
 
     @RequestMapping("/list")
-    public String list(Integer currentPage,Model m) {
-        if (currentPage == null) currentPage = 1;
-        int limit = 10;
-        List<Notice> list = noticeDao.list(currentPage,limit);
-        PageHandler pageHandler = new PageHandler(noticeDao.getCnt(),currentPage,limit);
+    public String list(SearchCondition sc, Model m) {
+        if (sc.getNoticeCode() > 3 || sc.getNoticeCode() < 1) sc.setNoticeCode(1);
 
+        //List<Notice> list = noticeDao.list(sc.getPage(),limit,sc.getNoticeCode());
+        List<Notice> list = noticeDao.searchNotice(sc);
+        int totalCnt = noticeDao.searchNoticeCnt(sc);
+
+        System.out.println("noticeDao.getCnt(noticeCode) = " + noticeDao.searchNoticeCnt(sc));
+
+        PageHandler pageHandler = new PageHandler(totalCnt,sc);
+
+        m.addAttribute("noticeCode",sc.getNoticeCode());
         m.addAttribute("list",list);
-        m.addAttribute("currentPage",currentPage);
+        m.addAttribute("page",sc.getPage());
         m.addAttribute("paging",pageHandler);
         return "list";
     }

@@ -76,41 +76,7 @@
   </header>
   <main>
     <section>
-      <div>공지사항</div>
-      <table>
-        <thead>
-        <tr>
-          <td>번호</td>
-          <td>제목</td>
-          <td>작성자</td>
-          <td>날짜</td>
-          <td>조회수</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>안녕하세요</td>
-          <td>khs1</td>
-          <td>2022.04.05</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>안녕하세요</td>
-          <td>khs2</td>
-          <td>2022.04.05</td>
-          <td>5</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>안녕하세요</td>
-          <td>khs3</td>
-          <td>2022.04.05</td>
-          <td>5</td>
-        </tr>
-        </tbody>
-      </table>
+      게시판 종류를 선택하세요.
     </section>
     <input type="button" value="글쓰기" onclick="location.href='<c:url value="/board/write"/>'">
   </main>

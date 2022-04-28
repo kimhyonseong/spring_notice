@@ -1,38 +1,42 @@
 package notice.domain;
 
 public class PageHandler {
-    private int currentPage;
+    private SearchCondition sc;
+//    private int currentPage;
+//    private int pageSize;  //한페이지에 보여지는 게시물 수
     private int totalCnt;
     private int totalPage;
-    private int pageSize;  //한페이지에 보여지는 게시물 수
     private int beginPage;
     private int endPage;
     private int blockSize = 10;
     private boolean showPrev;
     private boolean showNext;
 
-    public PageHandler(Integer totalCnt,Integer currentPage) {
-        this(totalCnt,currentPage,10);
-    }
-    public PageHandler(Integer totalCnt,Integer currentPage, Integer pageSize) {
+    public PageHandler(int totalCnt,SearchCondition sc) {
         this.totalCnt = totalCnt;
-        this.currentPage = currentPage;
-        this.pageSize = pageSize;
+        this.sc = sc;
+        
+        doPaging(totalCnt,sc);
+    }
 
-        totalPage = (int)Math.ceil(totalCnt / (double)pageSize);
-        beginPage = (currentPage-1) / blockSize * blockSize + 1;
+    public void doPaging(Integer totalCnt,SearchCondition sc) {
+        this.totalCnt = totalCnt;
+        this.sc = sc;
+
+        totalPage = (int)Math.ceil(totalCnt / (double)sc.getPageSize());
+        beginPage = (sc.getPage()-1) / blockSize * blockSize + 1;
         endPage = Math.min(beginPage + blockSize - 1,totalPage);
 
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    public SearchCondition getSc() {
+        return sc;
     }
 
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+    public void setSc(SearchCondition sc) {
+        this.sc = sc;
     }
 
     public int getTotalCnt() {
@@ -49,14 +53,6 @@ public class PageHandler {
 
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
     }
 
     public int getBeginPage() {
@@ -102,10 +98,9 @@ public class PageHandler {
     @Override
     public String toString() {
         return "PageHandler{" +
-                "currentPage=" + currentPage +
+                "sc=" + sc +
                 ", totalCnt=" + totalCnt +
                 ", totalPage=" + totalPage +
-                ", pageSize=" + pageSize +
                 ", beginPage=" + beginPage +
                 ", endPage=" + endPage +
                 ", blockSize=" + blockSize +

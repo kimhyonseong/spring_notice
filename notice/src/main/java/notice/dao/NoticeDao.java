@@ -1,13 +1,14 @@
 package notice.dao;
 
 import notice.domain.Notice;
+import notice.domain.SearchCondition;
 
 import java.util.List;
 
 public interface NoticeDao {
     List<Notice> list();
 
-    List<Notice> list(int page, int limit);
+    List<Notice> list(int page, int limit, int noticeCode);
 
     Notice selectNotice(int noticeId);
 
@@ -20,4 +21,9 @@ public interface NoticeDao {
     int updateNotice(Notice notice);
 
     int getCnt();
+    int getCnt(Integer noticeCode);
+
+    List<Notice> searchNotice(SearchCondition sc);
+
+    int searchNoticeCnt(SearchCondition sc);
 }

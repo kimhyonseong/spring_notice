@@ -39,7 +39,7 @@ public class NoticeController {
 //    }
 
     @GetMapping("/view")
-    public String view(int bno,int currentPage, Model m, HttpSession session) {
+    public String view(int bno,int page, Model m, HttpSession session) {
         Notice notice = noticeDao.selectNotice(bno);
         String writer = (String) session.getAttribute("id");
         ArrayList<String> codeList = new ArrayList<String>(Arrays.asList("공지","자유","익명"));
@@ -47,7 +47,7 @@ public class NoticeController {
         m.addAttribute("codeList",codeList);
         m.addAttribute("login",writer);
         m.addAttribute("notice",notice);
-        m.addAttribute("currentPage",currentPage);
+        m.addAttribute("page",page);
         return "write";
     }
 

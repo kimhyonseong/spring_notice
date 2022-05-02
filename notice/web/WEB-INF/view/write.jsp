@@ -144,7 +144,7 @@
             }
         },
         list: function () {
-            location.href = "<c:url value='/board/list?currentPage=${currentPage}'/>";
+            location.href = "<c:url value='/board/list?page=${page}'/>";
         },
         delete: function () {
             if (confirm("정말 삭제하시겠습니까?")) {

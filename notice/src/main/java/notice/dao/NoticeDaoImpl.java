@@ -230,7 +230,7 @@ public class NoticeDaoImpl implements NoticeDao {
                 sql += "content like concat('%',?,'%')) ";
         }
 
-        sql += "limit ?,?";
+        sql += "order by notice_no desc limit ?,?";
 
         try(
                 Connection conn = ds.getConnection();

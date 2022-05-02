@@ -98,19 +98,19 @@
     <section>
         <form method="get" action="<c:url value='/board/list'/>">
             <select name="option">
-                <option value="0">제목</option>
-                <option value="1">내용</option>
-                <option value="2">제목+내용</option>
+                <option value="0" ${paging.sc.option == 0?"selected":""}>제목</option>
+                <option value="1" ${paging.sc.option == 1?"selected":""}>내용</option>
+                <option value="2" ${paging.sc.option == 2?"selected":""}>제목+내용</option>
             </select>
 
             <select name="noticeCode">
-                <option value="0">전체</option>
-                <option value="1">공지</option>
-                <option value="2">자유</option>
-                <option value="3">익명</option>
+                <option value="0" ${paging.sc.noticeCode == 0?"selected":""}>전체</option>
+                <option value="1" ${paging.sc.noticeCode == 1?"selected":""}>공지</option>
+                <option value="2" ${paging.sc.noticeCode == 2?"selected":""}>자유</option>
+                <option value="3" ${paging.sc.noticeCode == 3?"selected":""}>익명</option>
             </select>
 
-            <input type="text" name="keyword" value="" placeholder="검색어">
+            <input type="text" name="keyword" value="${paging.sc.keyword}" placeholder="검색어">
             <input type="submit" value="검색">
         </form>
     </section>
@@ -129,7 +129,7 @@
             <c:forEach var="notice" items="${list}">
             <tr>
                 <td>${notice.noticeId}</td>
-                <td><a href="<c:url value='/board/view?bno=${notice.noticeId}&page=${page}'/>">${notice.title}</a></td>
+                <td><a href="<c:url value='/board/view${paging.sc.getQueryString()}&bno=${notice.noticeId}'/>">${notice.title}</a></td>
                 <td><c:choose>
                     <c:when test="${notice.noticeCode==3}">
                         익명

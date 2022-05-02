@@ -60,7 +60,7 @@ public class NoticeDaoImpl implements NoticeDao {
 
     @Override
     public Notice selectNotice(int noticeId) {
-        String sql = "select notice_no,notice_code,title,content,user_id,reg_date,up_date " +
+        String sql = "select notice_no,notice_code,title,content,user_id,cmt_cnt,reg_date,up_date " +
                 "from notice where notice_no = ?";
         ResultSet rs = null;
         Notice notice = null;
@@ -79,8 +79,9 @@ public class NoticeDaoImpl implements NoticeDao {
                 notice.setTitle(rs.getString(3));
                 notice.setContent(rs.getString(4));
                 notice.setWriter(rs.getString(5));
-                notice.setRegDate(new Date(rs.getDate(6).getTime()));
-                notice.setUpDate(new Date(rs.getDate(7).getTime()));
+                notice.setCmt_cnt(rs.getInt(6));
+                notice.setRegDate(new Date(rs.getDate(7).getTime()));
+                notice.setUpDate(new Date(rs.getDate(8).getTime()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -317,6 +318,24 @@ public class NoticeDaoImpl implements NoticeDao {
                 rowCnt = rs.getInt(1);
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rowCnt;
+    }
+
+    @Override
+    public int updateCommentCnt(int noticeId,int cnt) {
+        int rowCnt = 0;
+        String sql = "update notice set cmt_cnt = cmt_cnt + ? where notice_no = ?";
+
+        try (Connection conn = ds.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+                ){
+            pstmt.setInt(1,cnt);
+            pstmt.setInt(2,noticeId);
+            rowCnt = pstmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

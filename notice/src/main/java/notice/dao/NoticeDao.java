@@ -26,4 +26,6 @@ public interface NoticeDao {
     List<Notice> searchNotice(SearchCondition sc);
 
     int searchNoticeCnt(SearchCondition sc);
+
+    int updateCommentCnt(int noticeId, int cnt);
 }

@@ -29,23 +29,35 @@ public class CommentDaoImplTest {
         int noticeId = 0;
         noticeDao.deleteAllNotice();
         commentDao.deleteAll();
-        List<Notice> list = new ArrayList<>();
+        List<Notice> list = null;
 
+        // 게시글 생성
         Notice notice = new Notice(1,"test_title","test_contents","khs6524",new Date(),new Date());
         System.out.println("notice = " + notice);
         rowCnt = noticeDao.insertNotice(notice);
         assertEquals(1, rowCnt);
 
+        // 게시글 번호 확인
         SearchCondition sc = new SearchCondition(1,1,"",0,0);
         list = noticeDao.searchNotice(sc);
         System.out.println("list = " + list);
         noticeId = list.get(0).getNoticeId();
         assertEquals(1,list.size());
 
+        // 댓글 삽입
         Comment comment = new Comment(noticeId,"hello","khs6524");
         System.out.println("comment = " + comment);
         rowCnt = commentDao.write(comment);
         assertEquals(1,rowCnt);
+
+        // 게시글 댓글수 올리기
+        rowCnt = noticeDao.updateCommentCnt(noticeId,1);
+        assertEquals(1, rowCnt);
+
+        // 게시글 댓글수 확인
+        Notice notice2 = noticeDao.selectNotice(noticeId);
+        System.out.println("notice2.getCmt_cnt() = " + notice2.getCmt_cnt());
+        assertEquals(1, (int) notice2.getCmt_cnt());
     }
 
     @Test
@@ -138,6 +150,15 @@ public class CommentDaoImplTest {
         rowCnt = commentDao.write(comment);
         assertEquals(rowCnt,1);
 
+        // 게시글 댓글+
+        rowCnt = noticeDao.updateCommentCnt(noticeId,1);
+        assertEquals(1, rowCnt);
+
+        // 게시글 댓글 개수 확인
+        Notice notice1 = noticeDao.selectNotice(noticeId);
+        System.out.println("notice1.getCmt_cnt() = " + notice1.getCmt_cnt());
+        assertEquals(1,(int) notice1.getCmt_cnt());
+
         // 댓글 고유번호 조회
         commentList = commentDao.commentList(noticeId);
         commentId = commentList.get(0).getCno();
@@ -149,5 +170,9 @@ public class CommentDaoImplTest {
         comment2.setCno(commentId);
         rowCnt = commentDao.delete(comment2);
         assertEquals(rowCnt, 1);
+
+        // 댓글 업데이트
+        rowCnt = noticeDao.updateCommentCnt(noticeId,-1);
+        assertEquals(1, rowCnt);
     }
 }

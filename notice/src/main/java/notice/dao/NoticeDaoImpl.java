@@ -342,4 +342,26 @@ public class NoticeDaoImpl implements NoticeDao {
 
         return rowCnt;
     }
+
+    @Override
+    public int commentCnt(int bno) {
+        String sql = "select cmt_cnt from notice where notice_no = ?";
+        ResultSet rs;
+        int comment_cnt = 0;
+
+        try(
+                Connection conn = ds.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+        ) {
+            pstmt.setInt(1,bno);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                comment_cnt = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return comment_cnt;
+    }
 }

@@ -22,6 +22,7 @@ public interface NoticeDao {
 
     int getCnt();
     int getCnt(Integer noticeCode);
+    int commentCnt(int bno);
 
     List<Notice> searchNotice(SearchCondition sc);
 

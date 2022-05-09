@@ -1,7 +1,9 @@
 package notice.controller;
 
 import notice.NoticeValidator;
+import notice.dao.CommentDao;
 import notice.dao.NoticeDao;
+import notice.domain.Comment;
 import notice.domain.Notice;
 import notice.domain.PageHandler;
 import notice.domain.SearchCondition;
@@ -29,6 +31,8 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 public class NoticeController {
     @Autowired
     NoticeDao noticeDao;
+    @Autowired
+    CommentDao commentDao;
 
 //    @InitBinder
 //    public void initBinder(WebDataBinder binder){
@@ -48,6 +52,7 @@ public class NoticeController {
         m.addAttribute("login",writer);
         m.addAttribute("notice",notice);
         m.addAttribute("page",page);
+        m.addAttribute("bno",bno);
         return "write";
     }
 
@@ -138,6 +143,7 @@ public class NoticeController {
 
         //List<Notice> list = noticeDao.list(sc.getPage(),limit,sc.getNoticeCode());
         List<Notice> list = noticeDao.searchNotice(sc);
+
         int totalCnt = noticeDao.searchNoticeCnt(sc);
 
         System.out.println("noticeDao.getCnt(noticeCode) = " + noticeDao.searchNoticeCnt(sc));

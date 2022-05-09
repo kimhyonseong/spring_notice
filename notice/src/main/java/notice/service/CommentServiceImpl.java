@@ -3,6 +3,7 @@ package notice.service;
 import notice.dao.CommentDao;
 import notice.dao.NoticeDao;
 import notice.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +11,9 @@ import java.util.List;
 
 @Service
 public class CommentServiceImpl implements CommentService {
+    //@Autowired
     NoticeDao noticeDao;
+    //@Autowired
     CommentDao commentDao;
 
     //@Override

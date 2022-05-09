@@ -112,6 +112,8 @@
     </c:if>
     <input type="button" value="목록" onclick="notice.list()">
 </form>
+<input type="text">
+<div id="comment"></div>
 <script>
     let notice = {
         form: document.getElementById("form"),
@@ -152,8 +154,30 @@
                 this.form.setAttribute("method", "POST");
                 this.form.submit();
             }
+        },
+        reply_list : function () {
+            let ajax = new XMLHttpRequest();
+            ajax.open("GET","/notice/comments/${bno}",true);
+            ajax.onreadystatechange = function () {
+                if (ajax.DONE === ajax.readyState){
+                    let status = ajax.status;
+
+                    if (status === 0 || status === 200) {
+                        let json = JSON.parse(ajax.responseText);
+                        let comment = '';
+
+                        json.forEach((val,i) => {
+                            console.log(val.writer);
+                            comment += `<p data-writer="\${val.writer}">\${val.comment}</p>`;
+                        })
+                        document.getElementById("comment").innerHTML = comment;
+                    }
+                }
+            }
+            ajax.send();
         }
     }
+    notice.reply_list();
 </script>
 </body>
 </html>

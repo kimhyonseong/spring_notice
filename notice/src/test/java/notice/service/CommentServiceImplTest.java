@@ -59,7 +59,7 @@ public class CommentServiceImplTest {
         }
 
         //댓글 들어간거 확인
-        clist = commentDao.commentList(bno);
+        clist = commentService.view(bno);
         testString = clist.get(0).getComment();
         assertEquals(testString,"comment");
 

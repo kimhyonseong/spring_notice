@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+html {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: relative;
+}
+
+
+.background {
+    left: 0;
+    width: 102vw;
+    height: 100vh;
+    background: url("../img/back_spaghetti.jpg") no-repeat;
+    background-size: cover;
+    position: fixed;
+}
+
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    width: 600px;
+    min-height: 300px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px 100px;
+    margin: 100px 0;
+}
+
+.form-div {
+    width: 400px;
+    margin-top: 100px;
+}
+
+main .form-div h3 {
+    color: #0a6eeb;
+    margin-bottom: 40px;
+    font-size: 40px;
+}
+
+main .form-div h3 .border-bottom{
+    border-bottom: 2px solid #0a6eeb;
+}
+
+.category {
+    display: flex;
+    margin-bottom: 20px;
+}
+.category label {
+    flex: 1;
+    text-align: center;
+    border: 2px solid black;
+    color: black;
+    border-radius: 20px;
+    margin: 10px;
+    transition: all 0.2s;
+    padding: 5px;
+}
+.category label.active{
+    color: white;
+    background: black;
+    border: 2px solid black;
+    transform: scale(1.2);
+    transition: all 0.2s;
+}
+
+.category input[type=button] {
+    display: none;
+}
+
+.search {
+    display: flex;
+    justify-content: end;
+}
+
+.food-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 604px;
+    padding: 100px;
+}
+
+.food-list .food {
+    position: relative;
+    width: 125px;
+    height: 125px;
+    cursor: pointer;
+    border-radius: 100%;
+    margin: 13px;
+}
+
+.food-list .food .food-name {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    border-radius: 100%;
+    font-size: 20px;
+    transition: all 0.2s;
+    text-transform: capitalize;
+}
+
+.food-list .food .food-name.active {
+    opacity: 0;
+}
+
+.food-list .food .food-img {
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.food-list .food .food-img img {
+    width: 200px;
+    height: auto;
+}
+
+.food-rating {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px;
+}
+
+.food-rating .food-img {
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 100%;
+}
+
+.food-rating .food-avr {
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.food-rating .food-avr .avr {
+    font-size: 25px;
+    color: #ffc600;
+}
+
+.food-rating .rating-star input[type=radio]{
+    display: none;
+}
+
+.food-rating .rating-star {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 40px;
+    color: #8080805c;
+}
+
+.food-rating .rating-star .text{
+    color: black;
+    font-size: 15px;
+}
+
+.food-rating .rating-star .star.yellow {
+    color: #ffc600;
+}
+.food-rating .food-name {
+    margin: 10px;
+    font-size: 40px;
+    text-transform: capitalize;
+}
+
+.food-rating .food-cate {
+    margin-bottom: 30px;
+}
+
+.food-rating .food-reply {
+    max-width: 100%;
+    text-align: center;
+}
+
+.food-rating .food-reply .reply{
+    width: content-box;
+    margin-bottom: 15px;
+}
+
+.food-rating .food-reply .reply .text{
+    border-bottom: 1px black solid;
+    line-height: 1.5rem;
+}
+
+.food-rating .food-reply .reply .user_id {
+    margin-top: 10px;
+}

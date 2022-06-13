@@ -138,9 +138,14 @@
             </div>
         </div>
     </div>
+    <div class="login">
+        <label>ID
+            <input type="text" name="user_id" value="">
+        </label>
+        <label>PW
+            <input type="text" name="user_pw" class="">
+        </label>
+    </div>
 </main>
-</body>
-</html>
-
 </body>
 </html>

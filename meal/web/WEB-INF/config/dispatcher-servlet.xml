@@ -9,8 +9,8 @@
 ">
 
     <mvc:annotation-driven/>
-    <mvc:resources mapping="/resource/**" location="/WEB-INF/resource/" />
-    <context:component-scan base-package="Controller"/>
+    <mvc:resources mapping="/resource/**" location="/web/WEB-INF/resource/" />
+    <context:component-scan base-package="meal"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/"/>

@@ -31,4 +31,23 @@ public class CommentController {
             return new ResponseEntity<List<Comment>>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/comments")
+    public ResponseEntity<String> insert(@RequestBody Comment comment, Integer bno, HttpSession session) {
+        int rowCnt;
+        comment.setWriter((String) session.getAttribute("id"));
+
+        try {
+            System.out.println("comment = " + comment);
+            rowCnt = commentService.write(comment);
+
+            if (rowCnt != 1)
+                throw new Exception("write fail.");
+
+            return new ResponseEntity<String>("WRT_OK",HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("WRT_ERR",HttpStatus.BAD_REQUEST);
+        }
+    }
 }

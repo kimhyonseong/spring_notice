@@ -1,6 +1,6 @@
-package com.example.hello.controller;
+package com.example.hello.post.controller;
 
-import com.example.hello.dto.PostRequestDto;
+import com.example.hello.post.dto.PostRequestDto;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

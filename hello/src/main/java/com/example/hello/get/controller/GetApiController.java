@@ -1,6 +1,6 @@
-package com.example.hello.controller;
+package com.example.hello.get.controller;
 
-import com.example.hello.dto.UserRequest;
+import com.example.hello.get.dto.UserRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;

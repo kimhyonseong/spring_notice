@@ -4,18 +4,16 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class UserTest {
     @Test
     void test() {
-        User user = new User();
+        Member user = new Member();
         user.setEmail("khs1@one.com");
         user.setName("khs");
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 
-        User user1 = new User(null,"khs","khs@one.com",LocalDateTime.now(),LocalDateTime.now());
+        Member user1 = new Member(null,"khs","khs@one.com",LocalDateTime.now(),LocalDateTime.now());
         System.out.println(user1);
     }
 }

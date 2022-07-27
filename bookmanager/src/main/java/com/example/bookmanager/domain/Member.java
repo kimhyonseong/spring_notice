@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-public class User {
+public class Member {
     @Id  // entity의 프라이머리키
     @GeneratedValue  // 자동 증가
     private Long id;

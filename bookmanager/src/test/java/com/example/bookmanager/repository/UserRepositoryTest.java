@@ -1,11 +1,9 @@
 package com.example.bookmanager.repository;
 
-import com.example.bookmanager.domain.User;
+import com.example.bookmanager.domain.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserRepositoryTest {
@@ -14,7 +12,7 @@ class UserRepositoryTest {
 
     @Test
     void crud() {
-        userRepository.save(new User());
+        userRepository.save(new Member());
 
         System.out.println(">>> "+userRepository.findAll());
     }

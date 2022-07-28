@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
@@ -100,5 +101,24 @@ class UserRepositoryTest {
 
         Example<Member> example = Example.of(new Member("kh","khs@naver.com"),matcher);
         userRepository.findAll(example).forEach(System.out::println);
+    }
+
+    @Test
+    void customSelect() {
+        System.out.println("findByName : "+userRepository.findByName("khs"));
+        System.out.println("findMemberByName : " + userRepository.findMemberByName("khs1"));
+        System.out.println("findMemberByEmail : "+userRepository.findMemberByEmail("khs@naver.com"));
+        System.out.println("Top1ByEmail : "+userRepository.findTop1ByEmail("khs@naver.com"));
+        System.out.println("Top2ByEmail : "+userRepository.findTop2ByEmail("khs@naver.com"));
+    }
+
+    @Test
+    void whereSelect() {
+        System.out.println("findMemberByNameAndEmail : "+userRepository.findMemberByNameAndEmail("khs","khs@naver.com"));
+        System.out.println("findMemberByNameOrEmail : "+userRepository.findMemberByNameOrEmail("khs","khs@naver.com"));
+        System.out.println("findByCreatedAtAfter : "+userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByIdAfter : "+userRepository.findByIdAfter(4L));
+        System.out.println("findByIdGreaterThan : "+userRepository.findByIdGreaterThan(4L));
+        System.out.println("findByIdGreaterThanEqualAndNameLike : "+userRepository.findByIdGreaterThanEqualAndNameLike(4L,"%khs%"));
     }
 }

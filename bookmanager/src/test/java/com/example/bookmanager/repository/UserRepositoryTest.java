@@ -129,4 +129,36 @@ class UserRepositoryTest {
 
         System.out.println("findByName paging : "+userRepository.findByName("khs",PageRequest.of(0,2,Sort.by(Sort.Order.desc("id")))).getContent());
     }
+
+    @Test
+    void listenerTest() {
+        Member member = new Member("khs10","khs10@naver.com");
+        userRepository.save(member);
+
+        Member member1 = userRepository.findMemberByName("khs10");
+        member1.setEmail("hs10@naver.com");
+        userRepository.save(member1);
+
+        userRepository.deleteById(1L);
+    }
+
+    @Test
+    void persistTest() {
+        Member member = new Member("khs10","khs10@naver.com");
+//        member.setCreatedAt(LocalDateTime.now());
+//        member.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(member);
+        System.out.println(userRepository.findMemberByEmail("khs10@naver.com"));
+    }
+
+    @Test
+    void preUpdateTest() {
+        Member member = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        System.out.println("now : "+member);
+
+        member.setEmail("empty@naver.com");
+        userRepository.save(member);
+
+        System.out.println("updated : "+userRepository.findAll().get(0));
+    }
 }

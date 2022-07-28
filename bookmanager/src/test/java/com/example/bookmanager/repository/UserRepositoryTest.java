@@ -121,4 +121,12 @@ class UserRepositoryTest {
         System.out.println("findByIdGreaterThan : "+userRepository.findByIdGreaterThan(4L));
         System.out.println("findByIdGreaterThanEqualAndNameLike : "+userRepository.findByIdGreaterThanEqualAndNameLike(4L,"%khs%"));
     }
+
+    @Test
+    void sortAndPagingTest() {
+        System.out.println("findFirstByName asc : "+userRepository.findFirstByName("khs",Sort.by(Sort.Order.asc("id"))));
+        System.out.println("findFirstByName desc : "+userRepository.findFirstByName("khs",Sort.by(Sort.Order.desc("id"))));
+
+        System.out.println("findByName paging : "+userRepository.findByName("khs",PageRequest.of(0,2,Sort.by(Sort.Order.desc("id")))).getContent());
+    }
 }

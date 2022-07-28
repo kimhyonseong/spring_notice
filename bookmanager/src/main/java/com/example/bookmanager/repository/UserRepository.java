@@ -1,6 +1,9 @@
 package com.example.bookmanager.repository;
 
 import com.example.bookmanager.domain.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
@@ -23,4 +26,7 @@ public interface UserRepository extends JpaRepository<Member,Long> {
     List<Member> findByIdGreaterThan(Long id);  // 숫자 크기비교
     List<Member> findByIdGreaterThanEqualAndNameLike(Long id,String name);  // 숫자 크기비교
 
+    List<Member> findFirstByName(String name, Sort sort);
+
+    Page<Member> findByName(String name, Pageable pageable);
 }

@@ -1,6 +1,9 @@
 package com.example.bookmanager.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,7 +14,8 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@EntityListeners(value = MyEntityListener.class)
+//@EntityListeners(value = {MyEntityListener.class,UserEntityListener.class})
+@EntityListeners(value = {AuditingEntityListener.class,UserEntityListener.class})
 public class Member implements Auditable{
     @Id  // entity의 프라이머리키
     @GeneratedValue  // 자동 증가
@@ -21,7 +25,9 @@ public class Member implements Auditable{
     private String name;
     @NonNull
     private String email;
+    @CreatedDate
     private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
 //    @PrePersist

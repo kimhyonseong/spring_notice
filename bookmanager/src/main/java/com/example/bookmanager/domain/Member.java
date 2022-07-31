@@ -21,9 +21,9 @@ import java.time.LocalDateTime;
 @Entity
 //@EntityListeners(value = {MyEntityListener.class,UserEntityListener.class})
 @EntityListeners(value = {UserEntityListener.class})
-public class Member extends BaseEntity implements Auditable {
+public class Member extends BaseEntity {
     @Id  // entity의 프라이머리키
-    @GeneratedValue  // 자동 증가
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 자동 증가, strategy ->
     private Long id;
 
     @NonNull

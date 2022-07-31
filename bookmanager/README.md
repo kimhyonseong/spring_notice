@@ -11,4 +11,5 @@ main 또는 test 디렉토리에 resources/data.sql 생성 시 스프링 부트 
 findBy... 네이밍 규칙을 통해서 커스터마이징 가능  
 https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-query-return-types  
 
-@MappedSuperclass : 상속되는 변수를 상위 엔티티에 컬럼으로 사용하겠다는 
+@MappedSuperclass : 상속되는 변수를 상위 엔티티에 컬럼으로 사용하겠다는 어노테이션  
+@GeneratedValue(strategy = GenerationType.IDENTITY) : 각 엔티티마다 id 값 따로 사용함

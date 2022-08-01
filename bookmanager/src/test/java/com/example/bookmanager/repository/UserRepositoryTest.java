@@ -17,6 +17,8 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserHistoryRepository userHistoryRepository;
 
     @Test
     @Transactional
@@ -160,5 +162,22 @@ class UserRepositoryTest {
         userRepository.save(member);
 
         System.out.println("updated : "+userRepository.findAll().get(0));
+    }
+
+    @Test
+    void userRelationTest() {
+        Member member = new Member();
+        member.setName("David");
+        member.setEmail("david@naver.com");
+        userRepository.save(member);
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+        member.setName("David1");
+        userRepository.save(member);
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+        member.setEmail("david1@naver.com");
+        userRepository.save(member);
+        userHistoryRepository.findAll().forEach(System.out::println);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.bookmanager.repository;
 
 import com.example.bookmanager.domain.Member;
+import com.example.bookmanager.domain.UserHistory;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,8 +148,6 @@ class UserRepositoryTest {
     @Test
     void persistTest() {
         Member member = new Member("khs10","khs10@naver.com");
-//        member.setCreatedAt(LocalDateTime.now());
-//        member.setUpdatedAt(LocalDateTime.now());
         userRepository.save(member);
         System.out.println(userRepository.findMemberByEmail("khs10@naver.com"));
     }
@@ -170,14 +169,18 @@ class UserRepositoryTest {
         member.setName("David");
         member.setEmail("david@naver.com");
         userRepository.save(member);
-        userHistoryRepository.findAll().forEach(System.out::println);
 
         member.setName("David1");
         userRepository.save(member);
-        userHistoryRepository.findAll().forEach(System.out::println);
 
         member.setEmail("david1@naver.com");
         userRepository.save(member);
-        userHistoryRepository.findAll().forEach(System.out::println);
+
+//        List<UserHistory> result = userHistoryRepository.findByUserId(
+//                userRepository.findByEmail("david1@naver.com").getId());
+
+        List<UserHistory> result = userRepository.findByEmail("david1@naver.com").getUserHistories();
+
+        result.forEach(System.out::println);
     }
 }

@@ -13,7 +13,7 @@ class UserTest {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
 
-        Member user1 = new Member(null,"khs","khs@one.com");
+        Member user1 = new Member("khs","khs@one.com");
         System.out.println(user1);
     }
 }

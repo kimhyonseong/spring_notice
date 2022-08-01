@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,28 +33,7 @@ public class Member extends BaseEntity {
     @NonNull
     private String email;
 
-    @PostPersist
-    public void postPersist() {
-        System.out.println(">>> postPersist");
-    }
-
-    @PostUpdate
-    public void postUpdate() {
-        System.out.println(">>> PostUpdate");
-    }
-
-    @PreRemove
-    public void PreRemove() {
-        System.out.println(">>> PreRemove");
-    }
-
-    @PostRemove
-    public void PostRemove() {
-        System.out.println(">>> PostRemove");
-    }
-
-    @PostLoad
-    public void PostLoad() {
-        System.out.println(">>> PostLoad");
-    }
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id",insertable = false, updatable = false)
+    private List<UserHistory> userHistories = new ArrayList<>();
 }

@@ -15,6 +15,7 @@ public interface UserRepository extends JpaRepository<Member,Long> {
 
     Member findMemberByName(String name);  // 단일 결과를 불러와야 성공
     List<Member> findMemberByEmail(String email);
+    Member findByEmail(String email);
 
     Member findTop1ByEmail(String email);  // 맨 위부터 하나만
     List<Member> findTop2ByEmail(String email);  // 맨 위부터 두개

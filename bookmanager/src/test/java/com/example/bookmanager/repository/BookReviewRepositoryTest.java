@@ -29,15 +29,17 @@ class BookReviewRepositoryTest {
     }
 
     @Test
-    void insertTest() {
+    void relationTest() {
         givenBookReview();
 
+        // relation - book을 bookReview id를 이용해서 찾음
         Book result = bookReviewRepository.findById(1L)
                         .orElseThrow(RuntimeException::new)
                         .getBook();
 
         System.out.println(result);
 
+        // relation - bookReview를 book id를 이용하여 찾음
         BookReviewInfo result2 = bookRepository
                 .findById(1L)
                 .orElseThrow(RuntimeException::new)

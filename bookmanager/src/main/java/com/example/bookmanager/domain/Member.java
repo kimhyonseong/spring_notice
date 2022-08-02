@@ -36,4 +36,9 @@ public class Member extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private List<UserHistory> userHistories = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "member_id")
+    @ToString.Exclude
+    private List<Review> reviews = new ArrayList<>();
 }

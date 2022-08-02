@@ -52,7 +52,7 @@ class BookReviewRepositoryTest {
         book.setName("위인전");
         book.setAuthorId(1L);
         book.setCategory("사회");
-        book.setPublisherId(1L);
+        //book.setPublisherId(1L);
 
         return bookRepository.save(book);
     }

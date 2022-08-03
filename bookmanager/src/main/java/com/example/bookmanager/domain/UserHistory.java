@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserHistory extends BaseEntity implements Auditable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    @Column(name = "user_id",insertable = false,updatable = false)
 //    private Long userId;

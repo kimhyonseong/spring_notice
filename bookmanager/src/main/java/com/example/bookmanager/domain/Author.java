@@ -25,11 +25,12 @@ public class Author extends BaseEntity{
 
     private String country;
 
-    @ManyToMany
+    @OneToMany
     @ToString.Exclude
-    private List<Book> books = new ArrayList<>();
+    @JoinColumn(name = "author_id")
+    private List<BookAndAuthor> bookAndAuthors = new ArrayList<>();
 
-    public void addBook(Book... books) {
-        Collections.addAll(this.books,books);
+    public void addBookAndAuthors(BookAndAuthor... o) {
+        Collections.addAll(this.bookAndAuthors,o);
     }
 }

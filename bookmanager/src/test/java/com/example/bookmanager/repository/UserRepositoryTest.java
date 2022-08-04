@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
+@Transactional
 @SpringBootTest
 class UserRepositoryTest {
     @Autowired

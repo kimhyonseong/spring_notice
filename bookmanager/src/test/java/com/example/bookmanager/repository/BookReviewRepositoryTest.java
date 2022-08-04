@@ -41,7 +41,7 @@ class BookReviewRepositoryTest {
 
         // relation - bookReview를 book id를 이용하여 찾음
         BookReviewInfo result2 = bookRepository
-                .findById(1L)
+                .findById(7L)
                 .orElseThrow(RuntimeException::new)
                 .getBookReviewInfo();
         System.out.println(result2);

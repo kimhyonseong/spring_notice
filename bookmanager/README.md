@@ -17,4 +17,12 @@ https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-q
 
 ### 트랜잭션  
 RuntimeException - 트랜잭션 내에서 발생하면 반영 내용이 롤백 됨  
-Exception(checked exception) - 트랜잭션 내에서 발생해도 반영(커밋)  
+Exception(checked exception) - 트랜잭션 내에서 발생해도 반영(커밋), 롤백조차도 반드시 예외처리를 해주어야함
+### isolation
+- Isolation.READ_UNCOMMITTED - 커밋되지 않은 정보도 불러옴, 중간에 다른 트랜잭션이 맞물리면 락이됨  
+@DynamicUpdate 어노테이션을 이용하여 필요한 정보들만 업데이트 가능 - uncommited일때 모두 업데이트 되는 현상 저지 가능  
+- Isolation.READ_COMMITTED - 의도한대로 동작 가능, 엔티티 캐시로 인해 의도치 않게 데이터가 조회될 수 있음  
+언리피터블 현상 : 반복적으로 조회했을때 조작을 하지 않았지만 트랜잭션 내에서 값이 달라질 수 있는 현상
+- Isolation.REPEATABLE_READ - 트랜잭션 도중 다른곳의 커밋이 일어나도 현재 트랜잭션이 끝난 후에 적용됨  
+팬텀리드 : 데이터가 조회되지 않는데 변경되는 현상
+- Isolation.SERIALIZABLE - 커밋이 일어나지 않은 트랜잭션이 존재하면 락을 통해서 기다림 / 지연 때문에 성능 문제 발생

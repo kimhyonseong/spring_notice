@@ -26,3 +26,12 @@ Exception(checked exception) - 트랜잭션 내에서 발생해도 반영(커밋
 - Isolation.REPEATABLE_READ - 트랜잭션 도중 다른곳의 커밋이 일어나도 현재 트랜잭션이 끝난 후에 적용됨  
 팬텀리드 : 데이터가 조회되지 않는데 변경되는 현상
 - Isolation.SERIALIZABLE - 커밋이 일어나지 않은 트랜잭션이 존재하면 락을 통해서 기다림 / 지연 때문에 성능 문제 발생
+
+### Propagation
+- Propagation.REQUIRED -  기본값, 트랜잭션 재활용 모두 같은 트랜잭션으로 묶음
+- Propagation.REQUIRED_NEW - 무조건 새로운 트랜잭션 생성(독립적)
+- Propagation.NESTED - 부분적인 작은 트랜잭션 생성(종속적인 트랜잭션, 상위에 영향을 주지 않음)
+- Propagation.SUPPORTS - 새로 생성하지 않고 처리, 트랜잭션 있으면 지원
+- Propagation.NOT_SUPPORTS - 해당 영역은 트랜잭션 없이 별도로 처리
+- Propagation.MANDATORY - 이미 만들어진 트랜잭션이 반드시 존재해야함
+- Propagation.NEVER - 트랜잭션이 없어야함

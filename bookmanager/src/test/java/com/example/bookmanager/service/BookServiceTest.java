@@ -7,6 +7,8 @@ import com.example.bookmanager.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,5 +43,17 @@ class BookServiceTest {
         bookService.get(1L);
 
         System.out.println(">>> test : "+bookRepository.findAll());
+    }
+
+    @Test
+    void propagationTest() {
+        try {
+            bookService.putBookAndAuthor();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("book : "+bookRepository.findAll());
+        System.out.println("author : "+authorRepository.findAll());
     }
 }

@@ -35,8 +35,8 @@ public class UserService {
         Member member1 = userRepository.findById(1L).get();
         entityManager.remove(member1);
 
-        member1.setName("After");
-        entityManager.merge(member1);
+//        member1.setName("After");
+//        entityManager.merge(member1);
         // 이미 지워진건 머지가 안됨
     }
 }

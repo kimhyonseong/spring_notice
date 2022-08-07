@@ -14,3 +14,7 @@ https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repository-q
 @MappedSuperclass : 상속되는 변수를 상위 엔티티에 컬럼으로 사용하겠다는 어노테이션  
 @GeneratedValue(strategy = GenerationType.IDENTITY) : 각 엔티티마다 id 값 따로 사용함  
 @PreUpdate : 트랜잭션이 종료된 시점에서 실행되어 postUpdate와 같은 값을 가질 것  
+
+### 트랜잭션  
+RuntimeException - 트랜잭션 내에서 발생하면 반영 내용이 롤백 됨  
+Exception(checked exception) - 트랜잭션 내에서 발생해도 반영(커밋)  

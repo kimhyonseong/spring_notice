@@ -2,8 +2,10 @@ package com.example.bookmanager.service;
 
 import com.example.bookmanager.domain.Author;
 import com.example.bookmanager.domain.Book;
+import com.example.bookmanager.domain.Publisher;
 import com.example.bookmanager.repository.AuthorRepository;
 import com.example.bookmanager.repository.BookRepository;
+import com.example.bookmanager.repository.PublisherRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +22,8 @@ class BookServiceTest {
     private BookRepository bookRepository;
     @Autowired
     private AuthorRepository authorRepository;
+    @Autowired
+    private PublisherRepository publisherRepository;
 
     @Test
     void transactionTest() {
@@ -55,5 +59,29 @@ class BookServiceTest {
 
         System.out.println("book : "+bookRepository.findAll());
         System.out.println("author : "+authorRepository.findAll());
+    }
+
+    @Test
+    void bookCascadeTest(){
+        Book book = new Book();
+        book.setName("JPA 캐스케이드");
+        //bookRepository.save(book);
+
+        Publisher publisher = new Publisher();
+        publisher.setName("패스트캠퍼스");
+        //publisherRepository.save(publisher);
+
+        // save가 없어도 cascade로 인한 연관관계 삽입
+        book.setPublisher(publisher);
+        bookRepository.save(book);
+
+        System.out.println("books : "+bookRepository.findAll());
+        System.out.println("publishers : "+publisherRepository.findAll());
+
+        Book book1 = bookRepository.findById(1L).get();
+        book1.getPublisher().setName("케스케이드");
+        bookRepository.save(book1);
+
+        System.out.println("publisher : "+publisherRepository.findAll());
     }
 }

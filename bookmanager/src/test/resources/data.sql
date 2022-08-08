@@ -15,5 +15,6 @@ insert into member(`name`,`email`,`created_at`,`updated_at`) values ('khs','khs5
 
 
 insert into publisher(id,name) values(1,'패스트 캠퍼스');
-insert into book(id,name,publisher_id) values (1,'JPA 패키지',1);
-insert into book(id,name,publisher_id) values (2,'JPA 패키지 2편',1);
+insert into book(id,name,publisher_id,deleted) values (1,'JPA 패키지',1,false);
+insert into book(id,name,publisher_id,deleted) values (2,'JPA 패키지 2편',1,false);
+insert into book(id,name,publisher_id,deleted) values (3,'JPA 패키지 3편',1,true);

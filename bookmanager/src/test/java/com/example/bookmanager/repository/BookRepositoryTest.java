@@ -83,4 +83,14 @@ class BookRepositoryTest {
 
         reviewRepository.findAll().forEach(System.out::println);
     }
+
+    @Test
+    void softDelete(){
+        bookRepository.findAll().forEach(System.out::println);
+        System.out.println(bookRepository.findById(3L));
+
+//        bookRepository.findByCategoryIsNull().forEach(System.out::println);
+//        bookRepository.findAllByDeletedIsFalse().forEach(System.out::println);
+//        bookRepository.findByCategoryIsNullAndDeletedIsFalse().forEach(System.out::println);
+    }
 }

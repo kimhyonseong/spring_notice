@@ -83,5 +83,27 @@ class BookServiceTest {
         bookRepository.save(book1);
 
         System.out.println("publisher : "+publisherRepository.findAll());
+
+        Book book2 = bookRepository.findById(1L).get();
+        //bookRepository.delete(book2);
+
+        Book book3 = bookRepository.findById(1L).get();
+        book3.setPublisher(null);
+        bookRepository.save(book3);
+
+        System.out.println("books : "+bookRepository.findAll());
+        System.out.println("publishers : "+publisherRepository.findAll());
+        System.out.println("book3 : "+bookRepository.findById(1L).get().getPublisher());
+    }
+
+    @Test
+    void cascadeRemoveTest() {
+        // data.sql은 auditable을 하지 않고 쿼리만 실행시킴
+        bookRepository.deleteById(1L);
+
+        System.out.println("books : "+bookRepository.findAll());
+        System.out.println("publishers : "+publisherRepository.findAll());
+
+        bookRepository.findAll().forEach(book -> System.out.println(book.getPublisher()));
     }
 }

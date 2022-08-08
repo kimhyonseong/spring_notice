@@ -12,3 +12,8 @@ insert into member(`name`,`email`,`created_at`,`updated_at`) values ('khs4','khs
 
 -- call next value for hibernate_sequence;
 insert into member(`name`,`email`,`created_at`,`updated_at`) values ('khs','khs5@naver.com',now(),now());
+
+
+insert into publisher(id,name) values(1,'패스트 캠퍼스');
+insert into book(id,name,publisher_id) values (1,'JPA 패키지',1);
+insert into book(id,name,publisher_id) values (2,'JPA 패키지 2편',1);

@@ -141,4 +141,9 @@ class BookRepositoryTest {
 
         bookRepository.showTables().forEach(System.out::println);
     }
+
+    @Test
+    void converterTest() {
+        bookRepository.findAll().forEach(System.out::println);
+    }
 }

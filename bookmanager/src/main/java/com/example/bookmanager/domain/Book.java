@@ -1,5 +1,6 @@
 package com.example.bookmanager.domain;
 
+import com.example.bookmanager.domain.converter.BookStatusConverter;
 import com.example.bookmanager.domain.listener.Auditable;
 import com.example.bookmanager.repository.dto.BookStatus;
 import lombok.Data;
@@ -52,6 +53,7 @@ public class Book extends BaseEntity{
 
     private boolean deleted;
 
+    @Convert(converter = BookStatusConverter.class)
     private BookStatus status;
 
     public void addBookAndAuthors(BookAndAuthor... o) {

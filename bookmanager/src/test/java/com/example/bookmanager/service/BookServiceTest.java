@@ -106,4 +106,11 @@ class BookServiceTest {
 
         bookRepository.findAll().forEach(book -> System.out.println(book.getPublisher()));
     }
+
+    @Test
+    void converterTest() {
+        bookService.getAll();
+
+        bookRepository.findAll().forEach(System.out::println);
+    }
 }

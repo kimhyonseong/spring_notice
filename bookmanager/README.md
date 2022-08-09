@@ -41,3 +41,11 @@ Exception(checked exception) - 트랜잭션 내에서 발생해도 반영(커밋
 ex) update all
 - JPA에서 지원하지 않는 기능을 사용할 때 사용  
 ex) show tables;
+
+### converter
+DB 데이터를 객체화 시킬때 커스터마이징하기 위해 사용
+- 주의사항
+  - AttributeConverter을 상속 했을때 쌍으로 만들어야함  
+  안그러면 null로 변경되는줄 알고 변경될 수도 있음
+  - 제네럴한 타입은 autoApply 사용하면 안됨 - 모두 적용될 수 있음  
+  ex) stringConvert로 하면 string 타입이 모두 적용됨

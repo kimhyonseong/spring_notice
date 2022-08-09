@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Tuple;
 import java.time.LocalDateTime;
@@ -33,4 +34,15 @@ public interface BookRepository extends JpaRepository<Book,Long> {
 
     @Query(value = "select new com.example.bookmanager.repository.dto.BookNameAndCategory(b.name,b.category) from Book b")
     Page<BookNameAndCategory> findBookNameAndCategory(Pageable pageable);
+
+    @Query(value = "select * from book", nativeQuery = true)  // 본래 쿼리라 아스타리스크 사용가능
+    List<Book> findAllCustom();
+
+    @Modifying
+    @Transactional
+    @Query(value = "update book set category = 'IT 전문서적'", nativeQuery = true)
+    int updateCategories();
+
+    @Query(value = "show tables", nativeQuery = true)
+    List<String> showTables();
 }

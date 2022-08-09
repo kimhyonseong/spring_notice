@@ -21,7 +21,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @DynamicUpdate
-@Where(clause = "deleted = false")
+@Where(clause = "deleted = false")  // 네이티브 쿼리에서는 적용이 안됨
 public class Book extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

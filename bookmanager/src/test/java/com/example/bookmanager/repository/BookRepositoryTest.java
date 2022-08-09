@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 class BookRepositoryTest {
@@ -117,5 +118,27 @@ class BookRepositoryTest {
 
         bookRepository.findBookNameAndCategory(PageRequest.of(0,1)).forEach(
                 bookCate -> { System.out.println(bookCate.getName()+" : "+bookCate.getCategory());});
+    }
+
+    @Test
+    void nativeQueryTest() {
+        /*
+        bookRepository.findAll().forEach(System.out::println);
+        bookRepository.findAllCustom().forEach(System.out::println);
+         */
+
+        List<Book> bookList = bookRepository.findAll();
+
+        for (Book book : bookList) {
+            book.setCategory("IT 전문서적");
+        }
+
+        bookRepository.saveAll(bookList);
+        bookRepository.findAll().forEach(System.out::println);
+
+        System.out.println("updated row : "+bookRepository.updateCategories());
+        bookRepository.findAll().forEach(System.out::println);
+
+        bookRepository.showTables().forEach(System.out::println);
     }
 }

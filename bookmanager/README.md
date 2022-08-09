@@ -35,3 +35,9 @@ Exception(checked exception) - 트랜잭션 내에서 발생해도 반영(커밋
 - Propagation.NOT_SUPPORTS - 해당 영역은 트랜잭션 없이 별도로 처리
 - Propagation.MANDATORY - 이미 만들어진 트랜잭션이 반드시 존재해야함
 - Propagation.NEVER - 트랜잭션이 없어야함
+
+### Native Query 
+- 성능 이슈가 있을때 사용  
+ex) update all
+- JPA에서 지원하지 않는 기능을 사용할 때 사용  
+ex) show tables;

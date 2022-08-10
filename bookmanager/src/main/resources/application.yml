@@ -20,3 +20,6 @@ spring:
       mode: always # data.sql 실행 여부
 server:
   port: 8080
+logging:
+  level:
+    root: trace

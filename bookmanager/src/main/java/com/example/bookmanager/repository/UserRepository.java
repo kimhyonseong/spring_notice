@@ -5,10 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface UserRepository extends JpaRepository<Member,Long> {
     List<Member> findByName(String name);  // 인자는 사용할 컬럼
@@ -30,4 +32,7 @@ public interface UserRepository extends JpaRepository<Member,Long> {
     List<Member> findFirstByName(String name, Sort sort);
 
     Page<Member> findByName(String name, Pageable pageable);
+
+    @Query(value = "select * from member", nativeQuery = true)
+    List<Map<String, Object>> findAllRowRecode();
 }

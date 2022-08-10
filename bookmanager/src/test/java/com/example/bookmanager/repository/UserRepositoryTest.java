@@ -1,5 +1,6 @@
 package com.example.bookmanager.repository;
 
+import com.example.bookmanager.domain.Address;
 import com.example.bookmanager.domain.Member;
 import com.example.bookmanager.domain.UserHistory;
 import org.assertj.core.util.Lists;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,6 +23,8 @@ class UserRepositoryTest {
     private UserRepository userRepository;
     @Autowired
     private UserHistoryRepository userHistoryRepository;
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
     @Transactional
@@ -186,5 +190,35 @@ class UserRepositoryTest {
         result.forEach(System.out::println);
 
         System.out.println("userHistory.getUser() : "+userHistoryRepository.findAll().get(0).getMember());
+    }
+
+    @Test
+    void embedTest() {
+        userRepository.findAll().forEach(System.out::println);
+
+        Member member = new Member();
+        member.setName("이순신");
+        member.setHomeAddress(new Address("서울시","깅남구","강남대로 777","777-222"));
+        member.setCompanyAddress(new Address("서울시","충무로","퇴계로 1","123-432"));
+        userRepository.save(member);
+
+        Member member1 = new Member();
+        member1.setName("김유신");
+        member1.setHomeAddress(null);
+        member1.setCompanyAddress(null);
+        userRepository.save(member1);
+
+        Member member2 = new Member();
+        member2.setName("늙은기린");
+        member2.setHomeAddress(new Address());
+        member2.setCompanyAddress(new Address());
+        userRepository.save(member2);
+
+        entityManager.clear();
+
+        userRepository.findAll().forEach(System.out::println);
+        userHistoryRepository.findAll().forEach(System.out::println);
+
+        userRepository.findAllRowRecode().forEach(a-> System.out.println(a.values()));
     }
 }

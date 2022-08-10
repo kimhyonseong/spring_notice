@@ -14,6 +14,8 @@ import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
 @Transactional
@@ -214,11 +216,16 @@ class UserRepositoryTest {
         member2.setCompanyAddress(new Address());
         userRepository.save(member2);
 
-        entityManager.clear();
+//        entityManager.clear();
 
         userRepository.findAll().forEach(System.out::println);
         userHistoryRepository.findAll().forEach(System.out::println);
 
         userRepository.findAllRowRecode().forEach(a-> System.out.println(a.values()));
+
+        assertAll(
+                () -> assertThat(userRepository.findById(7L).get().getHomeAddress()).isNull(),
+                () -> assertThat(userRepository.findById(8L).get().getHomeAddress()).isInstanceOf(Address.class)
+        );
     }
 }

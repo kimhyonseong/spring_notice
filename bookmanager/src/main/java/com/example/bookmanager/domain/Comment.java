@@ -1,8 +1,10 @@
 package com.example.bookmanager.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -10,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@DynamicInsert
 public class Comment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +24,7 @@ public class Comment extends BaseEntity{
     @ToString.Exclude
     private Review review;
 
+    @Column(columnDefinition = "datetime(6) default now(6)")
+    //@Column(columnDefinition = "datetime")
+    private LocalDateTime commentedAt;
 }

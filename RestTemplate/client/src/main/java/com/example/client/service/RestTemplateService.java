@@ -1,10 +1,13 @@
 package com.example.client.service;
 
+import com.example.client.dto.Req;
 import com.example.client.dto.UserResponse;
 import com.example.client.dto.UserResquest;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -36,7 +39,7 @@ public class RestTemplateService {
         return result.getBody();
     }
 
-    public UserResponse post(){
+    public void post(){
         // post 실제로 이렇게 안씀
         // http://localost:9090/api/server/user/{userId}/name/{userName}
         URI uri = UriComponentsBuilder
@@ -55,15 +58,78 @@ public class RestTemplateService {
         req.setName("steve");
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri,req,UserResponse.class);
-
-        // 어떤 값이 잘못된지 모를땐 String으로 모든 값 확인 가능
-        //ResponseEntity<String> response = restTemplate.postForEntity(uri,req,String.class);
+        //ResponseEntity<UserResponse> response = restTemplate.postForEntity(uri,req,UserResponse.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(uri,req,String.class);
 
         System.out.println(response.getStatusCode());
         System.out.println(response.getHeaders());
         System.out.println(response.getBody());
 
+        //return response.getBody();
+    }
+
+    public UserResponse exchange() {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("api/server/user/{userId}/name/{userName}")
+                .encode()
+                .build()
+                .expand(100,"steve")
+                .toUri();
+
+        System.out.println(uri);
+
+        UserResquest req = new UserResquest();
+        req.setAge(10);
+        req.setName("steve");
+
+        RequestEntity<UserResquest> requestEntity = RequestEntity
+                .post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("x-authorization","abcd")
+                .header("custom-header", "fffff")
+                .body(req);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<UserResponse> response = restTemplate.exchange(requestEntity,UserResponse.class);
+
         return response.getBody();
+    }
+
+    public Req<UserResponse> genericExchange() {
+        URI uri = UriComponentsBuilder
+                .fromUriString("http://localhost:9090")
+                .path("api/server/user/{userId}/name/{userName}")
+                .encode()
+                .build()
+                .expand(100,"steve")
+                .toUri();
+
+        System.out.println(uri);
+
+        UserResquest userResquest = new UserResquest();
+        userResquest.setAge(10);
+        userResquest.setName("steve");
+
+        Req<UserResquest> req = new Req<>();
+        req.setHeader(
+                new Req.Header()
+        );
+        req.setHttpBody(userResquest);
+
+        RequestEntity<Req<UserResquest>> requestEntity = RequestEntity
+                .post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("x-authorization","abcd")
+                .header("custom-header", "fffff")
+                .body(req);
+
+        // 제너릭 타입엔 .class 사용불가
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Req<UserResponse>> responseEntity =
+                restTemplate.exchange(requestEntity,
+                        new ParameterizedTypeReference<Req<UserResponse>>() {});
+
+        return responseEntity.getBody();
     }
 }

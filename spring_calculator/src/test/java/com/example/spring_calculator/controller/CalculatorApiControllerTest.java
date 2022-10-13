@@ -72,7 +72,6 @@ public class CalculatorApiControllerTest {
                 MockMvcResultMatchers.jsonPath("$.result").value("0")
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.response.resultCode").value("OK")
-                )
-                .andDo(MockMvcResultHandlers.print());
+        ).andDo(MockMvcResultHandlers.print());
     }
 }

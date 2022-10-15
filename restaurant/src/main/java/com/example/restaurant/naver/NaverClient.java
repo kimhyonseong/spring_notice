@@ -42,6 +42,7 @@ public class NaverClient {
 
         var httpEntity = new HttpEntity<>(headers);
         var responseType = new ParameterizedTypeReference<SearchLocalRes>(){};
+        //var responseType = new ParameterizedTypeReference<String>(){};
 
         var responseEntity = new RestTemplate().exchange(
                 uri,

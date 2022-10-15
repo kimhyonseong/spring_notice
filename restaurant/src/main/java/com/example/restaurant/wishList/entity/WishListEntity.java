@@ -1,12 +1,11 @@
-package com.example.restaurant.wishList;
+package com.example.restaurant.wishList.entity;
 
 import com.example.restaurant.db.MemoryDbEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

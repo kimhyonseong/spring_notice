@@ -1,7 +1,7 @@
 package com.example.restaurant.wishList.repository;
 
 import com.example.restaurant.db.MemoryDbRepositoryAbstract;
-import com.example.restaurant.wishList.WishListEntity;
+import com.example.restaurant.wishList.entity.WishListEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository

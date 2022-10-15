@@ -18,10 +18,11 @@ abstract public class MemoryDbRepositoryAbstract<T extends MemoryDbEntity> imple
         var optionalEntity = db.stream().filter(it->it.getIndex() == entity.getIndex()).findFirst();
 
         if (optionalEntity.isEmpty()) {
+            // db에 데이터가 없는 경우
             index++;
             entity.setIndex(index);
-
         } else {
+            // db에 데이터가 있는 경우
             var preIndex = optionalEntity.get().getIndex();
             entity.setIndex(preIndex);
 

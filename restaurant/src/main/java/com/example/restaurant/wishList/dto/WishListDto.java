@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class WishListDto {
-    private int index;
+    private Integer index;
     private String title;
     private String category;
     private String address;
-    private String readAddress;  //도로명주소
+    private String roadAddress;  //도로명주소
     private String homepageLink;
     private String imageLink;
     private boolean isVisit;

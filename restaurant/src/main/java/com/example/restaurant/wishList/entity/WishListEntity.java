@@ -13,7 +13,7 @@ public class WishListEntity extends MemoryDbEntity {
     private String title;
     private String category;
     private String address;
-    private String readAddress;  //도로명주소
+    private String roadAddress;  //도로명주소
     private String homepageLink;
     private String imageLink;
     private boolean isVisit;

@@ -1,6 +1,7 @@
 package com.example.restaurant.controller;
 
 import com.example.restaurant.wishList.dto.WishListDto;
+import com.example.restaurant.wishList.repository.WishListRepository;
 import com.example.restaurant.wishList.service.WishListService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiController {
     private final WishListService wishListService;
+    private final WishListRepository wishListRepository;
 
     @GetMapping("/search")
     public WishListDto search(@RequestParam String query) {
@@ -30,5 +32,15 @@ public class ApiController {
     @GetMapping("/all")
     public List<WishListDto> findAll() {
         return wishListService.findAll();
+    }
+
+    @DeleteMapping("/{index}")
+    public void delete(@PathVariable int index) {
+        wishListService.delete(index);
+    }
+
+    @PostMapping("/{index}")
+    public void addVisit(@PathVariable int index) {
+        wishListService.addVisit(index);
     }
 }

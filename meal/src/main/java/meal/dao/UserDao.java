@@ -10,4 +10,6 @@ public interface UserDao {
     int deleteUser(String id);
 
     User selectUser(String id);
+
+    int deleteAll();
 }

@@ -104,4 +104,19 @@ public class UserDaoImpl implements UserDao {
         }
         return user;
     }
+
+    @Override
+    public int deleteAll(){
+        String sql = "delete from user";
+
+        try(
+                Connection con = ds.getConnection();
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                ) {
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

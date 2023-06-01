@@ -6,8 +6,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,14 +32,14 @@ public class OgGraphService {
       Matcher matcher = pattern.matcher(target);
 
       if (matcher.find()) {
-        String property = Character.toUpperCase(matcher.group(1).charAt(0)) + matcher.group(1).substring(1);
+        String property = "set" + Character.toUpperCase(matcher.group(1).charAt(0)) + matcher.group(1).substring(1);
         String value = matcher.group(3);
 
         try {
-          Method method = ogGraph.getClass().getMethod("set"+property);
-          method.invoke(value);
-        } catch (Exception e) {
-          e.printStackTrace();
+          Method method = ogGraph.getClass().getMethod(property, String.class);
+          method.invoke(ogGraph,value);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+          System.out.println("없는 메소드입니다.("+property+")");
         }
       }
     }

@@ -20,11 +20,13 @@ public class DynamicPageCrawling implements Crawling{
   public void crawling(String url) {
     if (setDriver()) {
       ChromeOptions options = new ChromeOptions();
-      options.addArguments("--disable-popup-blocking");
       options.addArguments("headless");
+      options.addArguments("--lang=ko");
+      options.addArguments("--disable-popup-blocking");
       options.addArguments("--disable-gpu");
       options.addArguments("--blink-settings=imagesEnabled=false");
       options.addArguments("--remote-allow-origins=*");
+      options.setCapability("ignoreProtectedModeSettings", true);
 
       driver = new ChromeDriver(options);
 

@@ -26,7 +26,6 @@ public class DynamicPageCrawling implements Crawling{
       options.addArguments("--disable-gpu");
       options.addArguments("--blink-settings=imagesEnabled=false");
       options.addArguments("--remote-allow-origins=*");
-      options.setCapability("ignoreProtectedModeSettings", true);
 
       driver = new ChromeDriver(options);
 
@@ -34,7 +33,7 @@ public class DynamicPageCrawling implements Crawling{
         List<WebElement> list = getNewsList(url);
 
         for (WebElement element : list) {
-          System.out.println(element);
+          System.out.println(element.getText());
         }
       } catch (Exception e) {
         e.printStackTrace();
@@ -65,15 +64,18 @@ public class DynamicPageCrawling implements Crawling{
     boolean result = false;
     String path = Paths.get("./driver").toAbsolutePath().toString();
     File dir = new File(path);
-    File[] file = dir.listFiles();
+    File[] files = dir.listFiles();
 
-    if (file != null && file.length > 0) {
-      String fileName = file[0].toString();
+    if (files != null && files.length > 0) {
+      for(File file : files) {
+        if (file.isDirectory()) continue;
+        String fileName = file.toString();
 
-      // 현재 브라우저랑 버전 같아야함
-      System.setProperty("webdriver.chrome.driver", fileName);
-      log.info("webdriver.chrome.driver: "+System.getProperty("webdriver.chrome.driver"));
-      result = true;
+        // 현재 브라우저랑 버전 같아야함
+        System.setProperty("webdriver.chrome.driver", fileName);
+        log.info("webdriver.chrome.driver: " + System.getProperty("webdriver.chrome.driver"));
+        result = true;
+      }
     } else {
       log.error("empty Directory: ./driver");
     }

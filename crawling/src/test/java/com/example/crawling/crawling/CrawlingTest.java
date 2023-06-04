@@ -1,13 +1,15 @@
 package com.example.crawling.crawling;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class CrawlingTest {
   private Crawling crawling;
@@ -53,7 +55,6 @@ public class CrawlingTest {
     options.addArguments("--disable-gpu");
     options.addArguments("--blink-settings=imagesEnabled=false");
     options.addArguments("--remote-allow-origins=*");
-    options.setCapability("ignoreProtectedModeSettings", true);
 
     WebDriver driver = new ChromeDriver(options);
 
@@ -63,5 +64,31 @@ public class CrawlingTest {
     String chromeDriverVersion = driver.getClass().getPackage().getImplementationVersion();
     System.out.println("chromeDriverVersion: "+chromeDriverVersion);
     System.out.println("getPackage: "+driver.getClass().getPackage());
+  }
+
+  @Test
+  void chromeDriverTest() throws InterruptedException {
+    ChromeOptions options = new ChromeOptions();
+    options.addArguments("headless");
+    options.addArguments("--lang=ko");
+    options.addArguments("--disable-popup-blocking");
+    options.addArguments("--disable-gpu");
+    options.addArguments("--blink-settings=imagesEnabled=false");
+    options.addArguments("--remote-allow-origins=*");
+
+    WebDriver driver = new ChromeDriver(options);
+    driver.get("http://www.google.com/");
+    Thread.sleep(1000);  // Let the user actually see something!
+    WebElement searchBox = driver.findElement(By.name("q"));
+    searchBox.sendKeys("ChromeDriver");
+    searchBox.submit();
+    Thread.sleep(1000);  // Let the user actually see something!
+
+    List<WebElement> list = driver.findElements(By.cssSelector("h3.LC20lb.MBeuO.DKV0Md"));
+    for (WebElement ele : list) {
+      System.out.println(ele.getText());
+    }
+    System.out.println("끝");
+    driver.quit();
   }
 }

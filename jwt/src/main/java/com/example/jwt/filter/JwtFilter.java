@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtFilter extends GenericFilter {
   private static final Logger log = LoggerFactory.getLogger(JwtFilter.class);
-  private static final String AUTHORIZATION_HEADER = "Authorization";
+  public static final String AUTHORIZATION_HEADER = "Authorization";
   private final TokenProvider tokenProvider;
 
   @Override
@@ -24,7 +25,8 @@ public class JwtFilter extends GenericFilter {
     String requestURI = httpServletRequest.getRequestURI();
 
     if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-      Authentication authentication = tokenProvider
+      Authentication authentication = tokenProvider.getAuthentication(jwt);
+      SecurityContextHolder.getContext().setAuthentication(authentication);
     }
   }
 

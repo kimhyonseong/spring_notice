@@ -1,4 +1,4 @@
-package com.example.jwt.jwt;
+package com.example.jwt.errorResponse;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +13,9 @@ import java.io.IOException;
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
   @Override
-  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+  public void commence(HttpServletRequest request,
+                       HttpServletResponse response,
+                       AuthenticationException authException) throws IOException, ServletException {
     response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
   }
 }

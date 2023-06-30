@@ -1,7 +1,7 @@
 package com.example.jwt.config;
 
-import com.example.jwt.jwt.JwtAccessDeniedHandler;
-import com.example.jwt.jwt.JwtAuthenticationEntryPoint;
+import com.example.jwt.errorResponse.JwtAccessDeniedHandler;
+import com.example.jwt.errorResponse.JwtAuthenticationEntryPoint;
 import com.example.jwt.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -40,8 +40,8 @@ public class SecurityConfig {
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authorizeHttpRequests()
+            .and().authorizeHttpRequests()
+            .requestMatchers("/api/test").permitAll()
             .requestMatchers("/api/authenticate").permitAll()
             .requestMatchers("/api/signup").permitAll()
             .requestMatchers(PathRequest.toH2Console()).permitAll()

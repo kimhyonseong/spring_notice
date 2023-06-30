@@ -31,7 +31,7 @@ public class TokenProvider implements InitializingBean {
 
   public TokenProvider(
           @Value("${jwt.secret}") String secret,
-          @Value("{jwt.token-validity-in-seconds}") long tokenValidityInMillisecond) {
+          @Value("${jwt.token-validity-in-seconds}") long tokenValidityInMillisecond) {
     this.secret = secret;
     this.tokenValidityInMillisecond = tokenValidityInMillisecond;
   }
